@@ -1,0 +1,23 @@
+{
+  "name": "discord.js-embed-pages",
+  "version": "1.0.0",
+  "description": "All embed pagination in one package!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./exampleBot/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaZegame/Discord.js-embed-pages.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RaZegame/Discord.js-embed-pages/issues"
+  },
+  "homepage": "https://github.com/RaZegame/Discord.js-embed-pages#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  }
+}
