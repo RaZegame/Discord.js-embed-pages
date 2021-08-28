@@ -8,5 +8,5 @@ interface pagesInt {
 }   
 declare module "discord.js-embed-pages" {
     export function pages(message: Message, pages: MessageEmbed[], timeout: number, MovingButtonSytle: 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'DANGER'): void;
-    export function menuPages(message: Message, pages: pagesInt[], timeout: number)
+    export function menuPages(message: Message, pages: pagesInt[], timeout: number): void;
 }

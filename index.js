@@ -64,7 +64,6 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
     const Menu = new Discord.MessageSelectMenu()
         .setCustomId("sel_menu_pages")
         .setPlaceholder("Select something!")
-        .setMaxValues(pages.length)
         .addOptions(pages);
 
     const msg = await message.channel.send({ embeds: [pages[0].embed], components: [new Discord.MessageActionRow().addComponents(Menu)] })
@@ -74,7 +73,8 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
             for await (const value of int.values) {
                 for (const page of pages) {
                     if (page.value === value) {
-                        msg.edit({ embeds: [page.embed] })
+                        int.deferUpdate().catch(() => {});
+                       return await msg.edit({ embeds: [page.embed] })
                     } else {
                         continue;
                     }
@@ -84,6 +84,6 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
     });
     col.once("end", async () => {
         const disabledActionrow = new Discord.MessageActionRow().addComponents(Menu.setDisabled(true));
-        await msg.edit({ embeds: [pages[0].embed], components: [disabledActionrow] })
+        await msg.edit({ embeds: [pages[0].embed], components: [disabledActionrow] }).catch(() => {});
     });
 };
