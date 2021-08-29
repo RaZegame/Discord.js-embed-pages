@@ -1,13 +1,13 @@
 const Discord = require("discord.js");
 const depb = require("../index.js");
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] })
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES], partials: ["REACTION", "USER"] })
 
-client.on("messageCreate", (message) => {
-    if (message.content === "!help") {
-        depb.pages(message, [new Discord.MessageEmbed().setTitle("1"), new Discord.MessageEmbed().setTitle("2"), new Discord.MessageEmbed().setTitle("3")], 3 * 60 * 1000, 'PRIMARY');
+client.on("messageCreate", async(message) => {
+    if (message.content === "pages1") {
+        await depb.pages(message, [new Discord.MessageEmbed().setTitle("1"), new Discord.MessageEmbed().setTitle("2"), new Discord.MessageEmbed().setTitle("3")], 3 * 60 * 1000, 'PRIMARY');
     }
-    if (message.content.startsWith("!help 2")) {
-        depb.menuPages(message, [
+    if (message.content.startsWith("pages2")) {
+       await depb.menuPages(message, [
             {
                 value: "1",
                 embed: new Discord.MessageEmbed().setTitle("1"),
@@ -31,9 +31,12 @@ client.on("messageCreate", (message) => {
             }
         ], 1 * 60 * 1000)
     }
+    if(message.content === "pages3") {
+        await depb.reactionPages(message, [new Discord.MessageEmbed().setTitle("1"), new Discord.MessageEmbed().setTitle("2"), new Discord.MessageEmbed().setTitle("3"),], 1 * 60 * 1000)
+    }
 });
 
 client.on("ready", () => {
     console.log("I am online 😎")
 });
-client.login("token here")
+client.login("ODM1MTA1Mjg2NjQ0ODI2MTQy.YIKmZw.Z1pBchdBN3GwWB3wPNtaiZ-indc")

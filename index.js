@@ -74,7 +74,8 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
                 for (const page of pages) {
                     if (page.value === value) {
                         int.deferUpdate().catch(() => {});
-                       return await msg.edit({ embeds: [page.embed] })
+                        await msg.edit({ embeds: [page.embed] });
+                        return;
                     } else {
                         continue;
                     }
@@ -89,14 +90,24 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
 };
 
 
-exports.reactionPages = async (/** @type {Discord.Message} */  message, pages) => {
-    const msg = await message.channel.send({ embeds: [pages[0].embed] })
-    for (const pageInfo of pages) {
-        msg.react(pageInfo.reaction);
-    }
-   const col = msg.createReactionCollector({ filter: (user) => user.users.includes() });
+exports.reactionPages = async (/** @type {Discord.Message} */  message, pages, timeout) => {
+    const msg = await message.channel.send({ embeds: [pages[0]] });
+    const infoArr = [];
+    await msg.react("◀")
+    await msg.react("▶")
+   const col = await msg.createReactionCollector({ /* filter: async(reaction, user) => user.id == message.author.id /* && infoArr.includes(reaction.emoji.name) */  time: timeout, idle: timeout / 2});
 
-   col.on("collect", (r) => {
-    
+   col.on("collect", async(r, user) => {
+       console.log("sus")
+        for await(const pageInfo of pages) {
+            if(r.emoji === pageInfo)  {
+                await msg.edit({ embeds: [pageInfo.embed]})
+            } else {
+                continue;
+            }
+        }
+   });
+   col.on("end", () => {
+       console.log("kinda sus")
    })
 };
