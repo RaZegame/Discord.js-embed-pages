@@ -87,3 +87,16 @@ exports.menuPages = async (/** @type {Discord.Message} */ message, pages, timeou
         await msg.edit({ embeds: [pages[0].embed], components: [disabledActionrow] }).catch(() => {});
     });
 };
+
+
+exports.reactionPages = async (/** @type {Discord.Message} */  message, pages) => {
+    const msg = await message.channel.send({ embeds: [pages[0].embed] })
+    for (const pageInfo of pages) {
+        msg.react(pageInfo.reaction);
+    }
+   const col = msg.createReactionCollector({ filter: (user) => user.users.includes() });
+
+   col.on("collect", (r) => {
+    
+   })
+};
