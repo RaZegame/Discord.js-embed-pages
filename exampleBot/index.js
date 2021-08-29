@@ -39,4 +39,4 @@ client.on("messageCreate", async(message) => {
 client.on("ready", () => {
     console.log("I am online 😎")
 });
-client.login("ODM1MTA1Mjg2NjQ0ODI2MTQy.YIKmZw.Z1pBchdBN3GwWB3wPNtaiZ-indc")
+client.login("token here")
